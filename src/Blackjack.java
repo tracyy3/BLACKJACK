@@ -44,11 +44,10 @@ public class Blackjack {
             while (true) {
                 System.out.println("Your hand is: ");
                 System.out.println(playersHand.toString());
-                System.out.println("Your hand is valued at: " + playersHand.cardsValue());
+                System.out.println("Your hand is valued @: " + playersHand.cardsValue());
 
-                // Dealer hand IS hidden until the player busts or stands
                 System.out.println("Dealer's Hand: " + dealersHand.getCard(0).toString() + " and [Hidden]");
-                System.out.println("Do you want to Double Down?"); // OPTION 2 -- Allow players to double down --
+                System.out.println("Do you want to Double Down?"); // OPTION 2 -- Allow players to double down start--
 
                 String answers = scanner.next();
                 boolean doubleDown = false;
@@ -56,17 +55,19 @@ public class Blackjack {
 
                 do { // IF player doesn't want to double down, they can hit or stand:
                     if (!answers.equals("yes")) {
-                        System.out.print("Do you want to hit or stand? "); // Player have the option to: hit or stand
+                        System.out.print("Do you want to hit or stand? ");
                         hitORstand = scanner.next();
                         if (hitORstand.charAt(0) == 'h' || hitORstand.charAt(0) == 'H') { // IF player HITS
                             playersHand.draw(playingDeckDeck);
-                            System.out.println(
-                                    "You draw a: " + playersHand.getCard(playersHand.deckSize() - 1).toString());
-                            System.out.println("Your hand is now valued at: " + playersHand.cardsValue());
+                            System.out.println("You draw a: "
+                                    + playersHand.getCard(playersHand.deckSize()
+                                            - 1).toString());
+                            System.out.println("Your hand is now valued @: "
+                                    + playersHand.cardsValue());
 
-                            if (playersHand.cardsValue() > 21) { // Bust if > 21
-                                System.out.println(
-                                        "Bust. You've BUSTED! Currently valued at: " + playersHand.cardsValue());
+                            if (playersHand.cardsValue() > 21) {
+                                System.out.println("Bust. You've BUSTED! Current valued @ : "
+                                        + playersHand.cardsValue());
                                 playersAmount -= playersBet;
                                 endRound = true;
                                 break;
@@ -78,11 +79,10 @@ public class Blackjack {
                         }
                     }
 
-                    if (answers.equals("yes")) { // player wants to double down
+                    if (answers.equals("yes")) { // Player wants to double down
                         if (playersBet * 2 > playersAmount) {
                             System.out.println(
-                                    "Sorry, you don't have enough money to double down. But, you can continue... "
-                                            + "to play your hand.");
+                                    "Sorry, you don't have enough money to double down. But, you can continue to play your hand.");
 
                             System.out.print("Do you want to hit or stand? ");
                             hitORstand = scanner.next();
@@ -119,7 +119,8 @@ public class Blackjack {
 
                             if (playersHand.cardsValue() > 21) { // Player BUST if > 21
                                 System.out.println(
-                                        "Bust. You've BUSTED! Currently valued at: " + playersHand.cardsValue());
+                                        "Bust. You've BUSTED! Currently valued at: "
+                                                + playersHand.cardsValue());
                                 playersAmount -= playersBet;
                                 endRound = true;
                                 break;
@@ -132,7 +133,6 @@ public class Blackjack {
                 break;
             }
 
-            // Dealer Card reveal
             System.out.println("Dealer's Cards: " + dealersHand.toString());
             if ((dealersHand.cardsValue() >= 17) && (dealersHand.cardsValue() > playersHand.cardsValue())
                     && !endRound) {
@@ -153,7 +153,6 @@ public class Blackjack {
                     + "\nPlayer's Hand value: "
                     + playersHand.cardsValue());
 
-            // Dealer busts if their cards > than 21
             if ((dealersHand.cardsValue() > 21) && !endRound) {
                 System.out.println("Dealer busts! You're the WINNER!");
                 playersAmount += playersBet;
@@ -175,12 +174,11 @@ public class Blackjack {
                 playersAmount -= playersBet;
             }
 
-            // Move player and dealer's cards back into the deck
             playersHand.moveAllToDeck(playingDeckDeck);
             dealersHand.moveAllToDeck(playingDeckDeck);
-            System.out.println("-----End of hand.-----");
+            System.out.println("-----End of Hand-----");
         }
 
-        System.out.println("-----Game Over. You're out of money so goodbye!-----");
+        System.out.println("-----Game Over. You're out of money. Goodbye!-----");
     }
 }
